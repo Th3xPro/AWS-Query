@@ -1,4 +1,4 @@
-service: dynamodb-sortkey
+service: dynamodb-query
 
 provider:
   name: aws
