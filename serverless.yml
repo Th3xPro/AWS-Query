@@ -1,0 +1,66 @@
+service: dynamodb-sortkey
+frameworkVersion: "1"
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+  lambdaHashingVersion: 20201221
+  profile: serverlessUser
+  region: us-east-1
+  stage: ${opt:stage, "dev"}
+  environment:
+    cityTable: { Ref: CityTable }
+  iamRoleStatements:
+    - Effect: "Allow"
+      Action:
+        - dynamodb:Query
+      Resource: "arn:aws:dynamodb:*:*:table/*-${self:provider.stage}"
+
+package:
+  excludeDevDependencies: false
+  exclude:
+    - resources/**
+    - test/**
+    - .*
+    - .*/**
+    - package-lock.json
+    - node_modules/**/aws-sdk/**
+
+functions:
+  getData:
+    handler: src/getData.handler
+    events:
+      - http:
+          path: /{city}
+          method: GET
+          cors: true
+      - http:
+          path: /{city}/{district}
+          method: GET
+          cors: true
+      - http:
+          path: /{city}/{district}/{street}
+          method: GET
+          cors: true
+      - http:
+          path: /{city}/{district}/{street}/{zip}
+          method: GET
+          cors: true
+
+resources:
+  Resources:
+    CityTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: City-Table-${self:provider.stage}
+        AttributeDefinitions:
+          - AttributeName: City
+            AttributeType: S
+          - AttributeName: district#street#zip
+            AttributeType: S
+        KeySchema:
+          - AttributeName: City
+            KeyType: HASH
+          - AttributeName: district#street#zip
+            KeyType: RANGE
+        BillingMode: PAY_PER_REQUEST
