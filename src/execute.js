@@ -17,26 +17,26 @@ function createParams(data, sortKey) {
   if (sortKey === "") {
     return {
       TableName: TABLE_NAME,
-      KeyConditionExpression: "#City = :pkey",
+      KeyConditionExpression: "#PK = :pkey",
       ExpressionAttributeValues: {
         ":pkey": data.city,
       },
       ExpressionAttributeNames: {
-        "#City": "City",
+        "#PK": "City",
       },
       ScanIndexForward: true,
     };
   } else {
     return {
       TableName: TABLE_NAME,
-      KeyConditionExpression: "#City = :pkey and begins_with(#Details, :skey)",
+      KeyConditionExpression: "#PK = :pkey and begins_with(#SK, :skey)",
       ExpressionAttributeValues: {
         ":pkey": data.city,
         ":skey": sortKey,
       },
       ExpressionAttributeNames: {
-        "#City": "City",
-        "#Details": "district#street#zip",
+        "#PK": "City",
+        "#SK": "district#street#zip",
       },
       ScanIndexForward: true,
     };
