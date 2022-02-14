@@ -1,5 +1,4 @@
 service: dynamodb-sortkey
-frameworkVersion: "1"
 
 provider:
   name: aws
