@@ -10,3 +10,7 @@ phases:
   post_build:
     commands:
       - echo build complete
+artifacts:
+  files:
+    - serverless.yml
+    - outputserverless.yml
