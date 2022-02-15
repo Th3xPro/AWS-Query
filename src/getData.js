@@ -5,7 +5,7 @@ module.exports.handler = async (event) => {
   console.log("Paramtery", pathParams);
 
   const res = await execute(pathParams);
-  if (res) {
+  if (res.length !== 0) {
     return {
       statusCode: 200,
       body: JSON.stringify(res),

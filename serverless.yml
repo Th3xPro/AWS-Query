@@ -45,6 +45,10 @@ functions:
           path: /{city}/{district}/{street}/{zip}
           method: GET
           cors: true
+          # request:
+          #   parameters:
+          #     paths:
+          #       id: true
 
 resources:
   Resources:

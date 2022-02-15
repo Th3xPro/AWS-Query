@@ -11,6 +11,7 @@ phases:
     commands:
       - echo build complete
 artifacts:
+  type: zip
   files:
     - serverless.yml
     - outputserverless.yml
