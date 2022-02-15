@@ -2,6 +2,4 @@ version: 0.2
 phases:
   build:
     commands:
-      - echo $environment
-      - serverless package --stage $environment --region us-east-1
-      - serverless deploy --stage $environment --region us-east-1
+      - serverless deploy --region us-east-1
