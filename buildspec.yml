@@ -1,0 +1,11 @@
+version: 0.2
+phases:
+  install:
+    commands:
+      #BUILD
+      - sudo apt-get update -y
+  build:
+    commands:
+      - echo $environment
+      - serverless package --stage $environment --region us-east-1
+      - serverless deploy --stage $environment --region us-east-1
